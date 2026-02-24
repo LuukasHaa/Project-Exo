@@ -9,7 +9,7 @@ class Planet:
     AU_in_meters = 1.496e11  # 1 Astronomical Unit in meters
 
     def __init__(self, mass=1.0, radius=1.0, distance_from_star=1.0,
-                 star_type=1, albedo=0.3):
+                 star_type=1, albedo=0.3, atmosphere_type=0):
         # Mass of the planet relative to Earth (Earth = 1.0)
         self.mass = mass
 
@@ -58,6 +58,23 @@ class Planet:
         t_eq = (self.star_temperature * math.sqrt(self.star_radius / (2 * self.actual_distance)) * (1 - self.albedo)**(1/4))
         return t_eq
 
+    
+    def final_temperature(self):
+    t_eq = self.surface_temperature() # Kaava C tulos
+    
+    # Lisätään kasvihuoneilmiö (Greenhouse Effect)
+    # Maa = n. 33K lisäys
+    if self.atmosphere_type == 2:
+        return t_eq + 33
+    elif self.atmosphere_type == 1:
+        return t_eq + 5
+    elif self.atmosphere_type == 3:
+        return t_eq + 150
+    elif self.atmosphere_type == 0
+        return t_eq
+    return t_eq
+    
+
     def jump_height(self):
         # Estimate: A human jumps approx. 0.5m on Earth.
         # Jump height is inversely proportional to gravity.
@@ -89,7 +106,7 @@ st.header("Planetary Parameters")
 col1, col2 = st.columns(2)
 
 mass = col1.slider("Mass (Earths)", 0.1, 10.0, 1.0)
-radius = col1.slider("Radius (Earths)", 0.5, 10.0, 1.0)
+radius = col1.slider("Radius (Earths)", 0.5, 5.0, 1.0)
 distance = col2.slider("Distance from Star (AU)", 0.01, 10.0, 1.0)
 albedo = col1.slider("Albedo", 0.0, 1.0, 1.0)
 
@@ -114,8 +131,11 @@ star_choice = col2.selectbox("Star Type",
                                   options=[0, 1, 2],
                                   format_func=lambda x: ["Red Dwarf", "Sun-like", "Sirius-like"][x])
 
+atmosphere_choise = col2.selectbox("Atmosphere Type",
+                                 options=[0, 1, 2, 1]
+                                 format_func=lambda x: ["None", "Thin", "Earth-like", "Thic"][x])
 # --- LOGIC ---
-p = Planet(mass=mass, radius=radius, distance_from_star=distance, star_type=star_choice, albedo=albedo)
+p = Planet(mass=mass, radius=radius, distance_from_star=distance, star_type=star_choice, albedo=albedo, atmosphere_type=atmosphere_choice)
 
 # --- OUTPUTS ---
 st.header("Results")
@@ -123,7 +143,7 @@ st.header("Results")
 # Metrics in a row
 col1, col2, col3 = st.columns(3)
 col1.metric("Surface Gravity", f"{p.surface_gravity():.2f} g")
-col2.metric("Temp (Est.)", f"{p.surface_temperature() - 273.15:.1f} °C")
+col2.metric("Temp (Est.)", f"{p.final_temperature() - 273.15:.1f} °C")
 col3.metric("Escape Velocity", f"{p.escape_velocity()/1000:.2f} km/s")
 
 # Scientific analysis
@@ -153,4 +173,5 @@ st.write(f"🏃 **Jump Height:** You could jump about **{p.jump_height():.2f} me
 st.write(f"📏 **Average Inhabitant:** A typical humanoid would be roughly **{p.average_height():.2f} m** tall.")
 
 st.write(f"🦴 **Bone Density:** Skeletal structures must be **{p.bone_density():.1f}x** stronger than human bones.")
+
 

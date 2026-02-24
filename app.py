@@ -81,7 +81,7 @@ class Planet:
 # --- STREAMLIT UI ---
 st.set_page_config(page_title="Hard Sci-Fi Planet Engine", layout="centered")
 
-st.title("StellarForge: Planet Simulator")
+st.title("Project Exo: Planet Simulator")
 st.markdown("Build scientifically accurate worlds.")
 
 # --- SIDEBAR INPUTS ---
@@ -151,4 +151,5 @@ st.divider()
 st.subheader("Biological Implications")
 st.write(f"🏃 **Jump Height:** You could jump about **{p.jump_height():.2f} meters** high.")
 st.write(f"📏 **Average Inhabitant:** A typical humanoid would be roughly **{p.average_height():.2f} m** tall.")
+
 st.write(f"🦴 **Bone Density:** Skeletal structures must be **{p.bone_density():.1f}x** stronger than human bones.")

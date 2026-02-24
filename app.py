@@ -132,7 +132,7 @@ star_choice = col2.selectbox("Star Type",
                                   format_func=lambda x: ["Red Dwarf", "Sun-like", "Sirius-like"][x])
 
 atmosphere_choise = col2.selectbox("Atmosphere Type",
-                                 options=[0, 1, 2, 3]
+                                 options=[0, 1, 2, 3],
                                  format_func=lambda x: ["None", "Thin", "Earth-like", "Thic"][x])
 # --- LOGIC ---
 p = Planet(mass=mass, radius=radius, distance_from_star=distance, star_type=star_choice, albedo=albedo, atmosphere_type=atmosphere_choice)
@@ -173,6 +173,7 @@ st.write(f"🏃 **Jump Height:** You could jump about **{p.jump_height():.2f} me
 st.write(f"📏 **Average Inhabitant:** A typical humanoid would be roughly **{p.average_height():.2f} m** tall.")
 
 st.write(f"🦴 **Bone Density:** Skeletal structures must be **{p.bone_density():.1f}x** stronger than human bones.")
+
 
 
 

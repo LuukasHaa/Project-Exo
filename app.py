@@ -60,19 +60,19 @@ class Planet:
 
     
     def final_temperature(self):
-    t_eq = self.surface_temperature() # Kaava C tulos
+        t_eq = self.surface_temperature() # Kaava C tulos
     
-    # Lisätään kasvihuoneilmiö (Greenhouse Effect)
-    # Maa = n. 33K lisäys
-    if self.atmosphere_type == 2:
-        return t_eq + 33
-    elif self.atmosphere_type == 1:
-        return t_eq + 5
-    elif self.atmosphere_type == 3:
-        return t_eq + 150
-    elif self.atmosphere_type == 0
+        # Lisätään kasvihuoneilmiö (Greenhouse Effect)
+        # Maa = n. 33K lisäys
+        if self.atmosphere_type == 2:
+            return t_eq + 33
+        elif self.atmosphere_type == 1:
+            return t_eq + 5
+        elif self.atmosphere_type == 3:
+            return t_eq + 150
+        elif self.atmosphere_type == 0
+            return t_eq
         return t_eq
-    return t_eq
     
 
     def jump_height(self):
@@ -173,6 +173,7 @@ st.write(f"🏃 **Jump Height:** You could jump about **{p.jump_height():.2f} me
 st.write(f"📏 **Average Inhabitant:** A typical humanoid would be roughly **{p.average_height():.2f} m** tall.")
 
 st.write(f"🦴 **Bone Density:** Skeletal structures must be **{p.bone_density():.1f}x** stronger than human bones.")
+
 
 
 
